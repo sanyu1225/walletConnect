@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import 'windi.css'
 import './style/main.css'
 import { VueDapp } from 'vue-dapp'
+
+import 'virtual:windi.css'
 
 const isDev = import.meta.env.DEV
 const infuraId = import.meta.env.VITE_INFURA_ID // get VITE_INFURA_ID=<infura_id> from .env file in the project root.

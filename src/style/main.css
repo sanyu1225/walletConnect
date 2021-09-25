@@ -18,13 +18,6 @@ html.dark {
     disabled:cursor-default disabled:opacity-70 disabled:bg-gray-100;
 }
 
-.btn {
-  @apply px-6 py-3 rounded-3xl inline-block
-    bg-green-500 text-gray-200 text-xl cursor-pointer
-    hover:bg-green-400 focus:outline-none
-    disabled:cursor-default disabled:opacity-70 disabled:bg-blue-400;
-}
-
 .icon-btn {
   @apply inline-block cursor-pointer select-none
     opacity-75 transition duration-200 ease-in-out
