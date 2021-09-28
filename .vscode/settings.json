@@ -1,11 +1,20 @@
 {
     "editor.tabSize": 2,
     "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
     "eslint.validate": [
       "javascript",
       "javascriptreact",
       "typescript",
     ],
+    "[vue]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "todo-tree.highlights.defaultHighlight": {
       "type": "whole-line",
       "fontWeight": "600",
@@ -26,18 +35,41 @@
           "icon": "eye",
           "iconColour": "#5BC0BE",
           "background": "#5BC0BE",
+        },
+        "ALERT": {
+          "icon": "alert",
+          "iconColour": "#FF6347",
+          "background": "#FF6347",
         }
+  
+        
     },
     "todo-tree.general.tags": [
       "FIXME",
       "TODO",
       "NOTE",
+      "ALERT",
     ],
     "i18n-ally.localesPaths": "src/locales",
     "files.eol": "\n",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    },
-    "liveServer.settings.port": 5501,
-    "css.lint.unknownAtRules": "ignore"
+    "i18n-ally.keystyle": "nested",
+    "vetur.validation.template": false,
+    "css.lint.unknownAtRules": "ignore",
+    "css.validate": true,
+    "stylelint.config": {
+      "rules": {
+        "at-rule-no-unknown": [true, {
+          "ignoreAtRules": [
+            "tailwind",
+            "apply",
+            "layer",
+            "variants",
+            "responsive",
+            "screen"
+          ]
+        }],
+        "declaration-block-trailing-semicolon": null,
+        "no-descending-specificity": null
+      }
+    }
   }

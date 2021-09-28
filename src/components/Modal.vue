@@ -1,14 +1,8 @@
 <template>
   <teleport to="body">
     <transition name="modal-animation">
-      <div
-        v-if="modalOpen"
-        class="modal"
-      >
-        <div
-          class="modal-inner"
-          ref="clickOutside"
-        >
+      <div v-if="modalOpen" class="modal">
+        <div ref="clickOutside" class="modal-inner">
           <div class="modal-content">
             <!-- Modal Content -->
             <slot />
@@ -20,77 +14,75 @@
 </template>
 
 <script>
-import { defineComponent, onUnmounted, watch, ref } from 'vue'
-import { useOnOutsidePress } from 'vue-composable'
+  import { defineComponent, onUnmounted, watch, ref } from 'vue'
+  import { useOnOutsidePress } from 'vue-composable'
 
-export const useModal = () => {
-  const modalOpen = ref(false)
-  const open = () => {
-    modalOpen.value = true
-  }
-  const close = () => {
-    modalOpen.value = false
-  }
-  return { modalOpen, open, close }
-}
-
-export default defineComponent({
-  emits: ['close'],
-  props: {
-    modalOpen: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  setup(props, { emit }) {
-    const closeModal = () => {
-      emit('close')
+  export const useModal = () => {
+    const modalOpen = ref(false)
+    const open = () => {
+      modalOpen.value = true
     }
+    const close = () => {
+      modalOpen.value = false
+    }
+    return { modalOpen, open, close }
+  }
 
-    const clickOutside = ref(null)
-    useOnOutsidePress(clickOutside, () => closeModal())
-
-    watch(
-      () => props.modalOpen,
-      (value) => {
-        if (value) {
-          document.body.classList.add('overflow-hidden')
-        } else {
-          document.body.classList.remove('overflow-hidden')
-        }
+  export default defineComponent({
+    props: {
+      modalOpen: {
+        type: Boolean,
+        required: true,
       },
-    )
+    },
+    emits: ['close'],
+    setup(props, { emit }) {
+      const closeModal = () => {
+        emit('close')
+      }
 
-    onUnmounted(() => {
-      document.body.classList.remove('overflow-hidden')
-    })
+      const clickOutside = ref(null)
+      useOnOutsidePress(clickOutside, () => closeModal())
 
-    return {
-      closeModal,
-      clickOutside,
-    }
-  },
-})
+      watch(
+        () => props.modalOpen,
+        (value) => {
+          if (value) {
+            document.body.classList.add('overflow-hidden')
+          } else {
+            document.body.classList.remove('overflow-hidden')
+          }
+        }
+      )
+
+      onUnmounted(() => {
+        document.body.classList.remove('overflow-hidden')
+      })
+
+      return {
+        closeModal,
+        clickOutside,
+      }
+    },
+  })
 </script>
 
-
-
 <style scoped>
-.modal {
-  @apply flex flex-col space-y-4 min-w-screen h-screen bg-gray-500 bg-opacity-70 fixed
+  .modal {
+    @apply flex flex-col space-y-4 min-w-screen h-screen bg-gray-500 bg-opacity-70 fixed
    left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none;
-}
+  }
 
-.modal-inner {
-  @apply flex bg-white shadow-xl rounded-2xl;
-}
+  .modal-inner {
+    @apply flex bg-white shadow-xl rounded-2xl;
+  }
 
-.modal-animation-enter-active,
-.modal-animation-leave-active {
-  transition: opacity 0.3s cubic-bezier(0.52, 0.02, 0.19, 1.02);
-}
-.modal-animation-enter-from,
-.modal-animation-leave-to {
-  opacity: 0;
-}
+  .modal-animation-enter-active,
+  .modal-animation-leave-active {
+    transition: opacity 0.3s cubic-bezier(0.52, 0.02, 0.19, 1.02);
+  }
+  .modal-animation-enter-from,
+  .modal-animation-leave-to {
+    opacity: 0;
+  }
 </style>
